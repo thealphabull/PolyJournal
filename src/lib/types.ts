@@ -24,7 +24,6 @@ export type Market = {
   volume: number;
   outcome_prices: string[];
   end_date_iso: string;
-  // Fields below were added to match the actual API response
   description: string;
   resolution_source: string;
   tags: string[];
@@ -49,5 +48,9 @@ export type Position = {
     is_active: boolean;
     is_resolved: boolean;
     resolution: string | null;
+    // Added market_info to match the actual API response
+    market_info?: {
+        category?: string;
+    };
   }
 };

@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+export const maxDuration = 30;
 
 const transformPositionsToTrades = (positions: Position[]): Trade[] => {
   return positions.map((pos, index) => {
@@ -25,7 +26,7 @@ const transformPositionsToTrades = (positions: Position[]): Trade[] => {
     return {
       id: `${pos.market}-${index}`,
       marketQuestion: pos.market_info.question,
-      marketCategory: pos.market_info.market_info?.category ?? 'Unknown',
+      marketCategory: pos.market_info.category ?? 'Unknown',
       entryPrice: parseFloat(pos.avg_price),
       size: parseFloat(pos.collateral),
       pnl,
@@ -40,12 +41,16 @@ const transformPositionsToTrades = (positions: Position[]): Trade[] => {
 
 async function getUserPositions(address: string | undefined): Promise<Position[]> {
   if (!address) return [];
-  const response = await fetch(`https://clob.polymarket.com/positions/${address}`);
+  const response = await fetch(`https://data-api.polymarket.com/positions?user=${address}`, {
+      headers: {
+          'User-Agent': 'PolyJournal (NextJS/Vercel Client)',
+      }
+  });
   if (!response.ok) {
     throw new Error('Failed to fetch user positions');
   }
   const data = await response.json();
-  return data.positions as Position[];
+  return data as Position[];
 }
 
 export default function TradeJournalPage() {

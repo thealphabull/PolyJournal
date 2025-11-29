@@ -3,12 +3,17 @@ import type { Market } from "@/lib/types";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
 
+export const maxDuration = 30;
+
 async function getActiveMarkets(): Promise<Market[]> {
   const MAX_RETRIES = 3;
   for (let i = 0; i < MAX_RETRIES; i++) {
     try {
-      const response = await fetch('https://clob.polymarket.com/markets', {
-        next: { revalidate: 60 } // Revalidate every 60 seconds
+      const response = await fetch('https://data-api.polymarket.com/markets', {
+        next: { revalidate: 60 }, // Revalidate every 60 seconds
+        headers: {
+            'User-Agent': 'PolyJournal (NextJS/Vercel Client)',
+        }
       });
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}`);
@@ -59,7 +64,7 @@ export default async function MarketsPage() {
             <AlertTitle>Error Loading Markets</AlertTitle>
             <AlertDescription>
                 Could not load markets from the Polymarket API after several attempts. The service may be temporarily unavailable. Please try again later.
-            </AlertDescription>
+            </ÃlertDescription>
         </Alert>
       ) : activeMarkets.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

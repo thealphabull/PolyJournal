@@ -12,6 +12,8 @@ import { Trade, Position } from "@/lib/types";
 import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 
+export const maxDuration = 30;
+
 // This function now transforms live Position data into the app's Trade format
 const transformPositionsToTrades = (positions: Position[], address: string): Trade[] => {
   return positions.map((pos, index) => {
@@ -23,7 +25,7 @@ const transformPositionsToTrades = (positions: Position[], address: string): Tra
     return {
       id: `${pos.market}-${index}`,
       marketQuestion: pos.market_info.question,
-      marketCategory: pos.market_info.market_info?.category ?? 'Unknown',
+      marketCategory: pos.market_info.category ?? 'Unknown',
       entryPrice: parseFloat(pos.avg_price),
       size: parseFloat(pos.collateral),
       pnl: pnl,
@@ -42,12 +44,16 @@ async function getUserPositions(address: string | undefined): Promise<Position[]
   const MAX_RETRIES = 3;
   for (let i = 0; i < MAX_RETRIES; i++) {
     try {
-      const response = await fetch(`https://clob.polymarket.com/positions/${address}`);
+      const response = await fetch(`https://data-api.polymarket.com/positions?user=${address}`, {
+        headers: {
+            'User-Agent': 'PolyJournal (NextJS/Vercel Client)',
+        }
+      });
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}`);
       }
       const data = await response.json();
-      return data.positions as Position[];
+      return data as Position[];
     } catch (error) {
       console.error(`Error fetching user positions (attempt ${i + 1}/${MAX_RETRIES}):`, error);
       if (i === MAX_RETRIES - 1) {
