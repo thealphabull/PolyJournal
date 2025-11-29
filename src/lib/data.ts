@@ -1,4 +1,4 @@
-import type { Market, Trade } from "./types";
+import type { Market, Trade, Position } from "./types";
 
 export const mockTrades: Trade[] = [
   {
@@ -66,55 +66,4 @@ export const mockTrades: Trade[] = [
     conviction: 4,
     holdDurationHours: 0,
   },
-];
-
-export const mockMarkets: Market[] = [
-  {
-    id: '1',
-    question: 'Will the Ethereum ETF be approved by September 30, 2024?',
-    category: 'Crypto',
-    liquidity: 150000,
-    volume: 750000,
-    outcomes: [
-      { name: 'Yes', price: 0.72 },
-      { name: 'No', price: 0.28 },
-    ],
-    endDate: '2024-09-30T23:59:59Z',
-  },
-  {
-    id: '2',
-    question: 'Will "Dune: Part Three" be officially announced by Warner Bros. before 2025?',
-    category: 'Entertainment',
-    liquidity: 50000,
-    volume: 250000,
-    outcomes: [
-      { name: 'Yes', price: 0.65 },
-      { name: 'No', price: 0.35 },
-    ],
-    endDate: '2024-12-31T23:59:59Z',
-  },
-  {
-    id: '3',
-    question: 'Will the Federal Reserve announce a rate cut at its September 2024 meeting?',
-    category: 'Finance',
-    liquidity: 250000,
-    volume: 1200000,
-    outcomes: [
-      { name: 'Yes', price: 0.45 },
-      { name: 'No', price: 0.55 },
-    ],
-    endDate: '2024-09-18T23:59:59Z',
-  },
-  {
-    id: '4',
-    question: 'Will OpenAI release a model with more than 10 trillion parameters by June 2025?',
-    category: 'Technology',
-    liquidity: 100000,
-    volume: 400000,
-    outcomes: [
-      { name: 'Yes', price: 0.33 },
-      { name: 'No', price: 0.67 },
-    ],
-    endDate: '2025-06-30T23:59:59Z',
-  }
 ];

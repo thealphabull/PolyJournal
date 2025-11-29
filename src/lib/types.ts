@@ -24,4 +24,30 @@ export type Market = {
   volume: number;
   outcome_prices: string[];
   end_date_iso: string;
+  // Fields below were added to match the actual API response
+  description: string;
+  resolution_source: string;
+  tags: string[];
+};
+
+export type Position = {
+  market: string;
+  user: string;
+  net_quantity: string;
+  avg_price: string;
+  last_trade_time: string;
+  liquidation_price: string | null;
+  collateral: string;
+  unrealized_pnl: string;
+  realized_pnl: string;
+  market_info: {
+    question: string;
+    image_url: string;
+    category: string;
+    outcomes: string[];
+    end_date_iso: string;
+    is_active: boolean;
+    is_resolved: boolean;
+    resolution: string | null;
+  }
 };

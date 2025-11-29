@@ -23,10 +23,12 @@ function StatCard({ title, value, icon: Icon, valueClass, helpText }: { title: s
 
 export function StatsGrid({ trades }: StatsGridProps) {
   const closedTrades = trades.filter((t) => t.outcome !== "pending");
-  const totalPnl = closedTrades.reduce((acc, trade) => acc + trade.pnl, 0);
+  const totalPnl = trades.reduce((acc, trade) => acc + trade.pnl, 0); // Sum of both realized and unrealized pnl
   const totalWins = closedTrades.filter((t) => t.outcome === "win").length;
   const winRate = closedTrades.length > 0 ? (totalWins / closedTrades.length) * 100 : 0;
   const totalVolume = trades.reduce((acc, trade) => acc + trade.size, 0);
+  
+  // Avg conviction is now based on default unless user edits it
   const avgConviction = trades.length > 0 ? trades.reduce((acc, t) => acc + t.conviction, 0) / trades.length : 0;
   
   const pnlClass = totalPnl >= 0 ? "text-green-500" : "text-red-500";
@@ -39,23 +41,23 @@ export function StatsGrid({ trades }: StatsGridProps) {
             value={`${totalPnl >= 0 ? "+" : ""}$${totalPnl.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
             icon={Scale}
             valueClass={pnlClass}
-            helpText="Based on all closed trades"
+            helpText="Unrealized + Realized PnL"
         />
         <StatCard
             title="Win Rate"
             value={`${winRate.toFixed(1)}%`}
             icon={Percent}
-            helpText={`${totalWins} wins / ${closedTrades.length} trades`}
+            helpText={closedTrades.length > 0 ? `${totalWins} wins / ${closedTrades.length} resolved trades` : 'No resolved trades yet'}
         />
         <StatCard
-            title="Total Volume"
+            title="Total Position Value"
             value={`$${totalVolume.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
             icon={BarChart}
-            helpText="Total value of all positions taken"
+            helpText="Current value of all positions"
         />
         <StatCard
             title="Avg. Conviction"
-            value={`${avgConviction.toFixed(2)} / 5`}
+            value={trades.length > 0 ? `${avgConviction.toFixed(2)} / 5` : 'N/A'}
             icon={BrainCircuit}
             helpText="Your average conviction score per trade"
         />

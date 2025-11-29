@@ -11,7 +11,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { Home, Store, LayoutGrid } from "lucide-react";
+import { Home, Store, LayoutGrid, BookText } from "lucide-react";
 
 const menuItems = [
   {
@@ -28,6 +28,11 @@ const menuItems = [
     href: "/dashboard",
     label: "Dashboard",
     icon: LayoutGrid,
+  },
+  {
+    href: "/dashboard/trades",
+    label: "Trade Journal",
+    icon: BookText,
   },
 ];
 
