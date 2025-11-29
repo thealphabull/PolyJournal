@@ -17,12 +17,11 @@ export type Trade = {
 export type Market = {
   id: string;
   question: string;
+  slug: string;
   category: string;
+  active: boolean;
   liquidity: number;
   volume: number;
-  outcomes: {
-    name: string;
-    price: number;
-  }[];
-  endDate: string;
+  outcome_prices: string[];
+  end_date_iso: string;
 };

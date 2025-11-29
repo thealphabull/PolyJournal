@@ -1,8 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Wallet } from "lucide-react";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export function AppHeader() {
   return (
@@ -11,10 +10,7 @@ export function AppHeader() {
         <SidebarTrigger className="md:hidden" />
         {/* The title is in the sidebar, so we can hide it here on larger screens */}
       </div>
-      <Button>
-        <Wallet className="mr-2 h-4 w-4" />
-        Connect Wallet
-      </Button>
+      <ConnectButton />
     </header>
   );
 }
