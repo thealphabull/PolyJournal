@@ -13,3 +13,16 @@ export type Trade = {
   conviction: number;
   holdDurationHours: number;
 };
+
+export type Market = {
+  id: string;
+  question: string;
+  category: string;
+  liquidity: number;
+  volume: number;
+  outcomes: {
+    name: string;
+    price: number;
+  }[];
+  endDate: string;
+};

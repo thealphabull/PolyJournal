@@ -11,13 +11,13 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { Clock, LayoutGrid } from "lucide-react";
+import { Store, LayoutGrid } from "lucide-react";
 
 const menuItems = [
   {
-    href: "/",
-    label: "Timeline",
-    icon: Clock,
+    href: "/markets",
+    label: "Markets",
+    icon: Store,
   },
   {
     href: "/dashboard",
